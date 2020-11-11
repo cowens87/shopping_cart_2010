@@ -3,7 +3,7 @@ class Vendor
               :inventory
 
   def initialize(name)
-    @name = name
+    @name      = name
     @inventory = Hash.new(0)
   end
 
