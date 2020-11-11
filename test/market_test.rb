@@ -140,7 +140,6 @@ class MarketTest < Minitest::Test
     expected = ['Banana Nice Cream', 'Peach', 'Peach-Raspberry Nice Cream', 'Tomato']
     assert_equal expected, @market.sorted_item_list
   end
-
   # Iteration 4
   def test_it_can_find_the_date
   # A market will now be created with a date - whatever date the market is
@@ -153,5 +152,38 @@ class MarketTest < Minitest::Test
     Date.stubs(:today).returns(Date.parse("20200224"))
     market = Market.new("South Pearl Street Farmers Market")
     assert_equal "24/02/2020", market.date
+  end
+
+    def test_it_can_sell_an_item
+  # Add a method to your Market class called `sell` that takes an item and a
+  # quantity as arguments. There are two possible outcomes of the `sell` method:
+
+  # 1. If the Market does not have enough of the item in stock to satisfy the given
+  # quantity, this method should return `false`.
+
+  # 2. If the Market's has enough of the item in stock to satisfy the given quantity,
+  # this method should return `true`. Additionally, this method should reduce the
+  # stock of the Vendors. It should look through the Vendors in the order they were
+  # added and sell the item from the first Vendor with that item in stock. If that
+  # Vendor does not have enough stock to satisfy the given quantity, the Vendor's
+  # entire stock of that item will be depleted, and the remaining quantity will
+  # be sold from the next vendor with that item in stock. It will follow this pattern
+  # until the entire quantity requested has been sold.
+    @vendor1.stock(@item1, 35)
+    @vendor1.stock(@item2, 7)
+    @vendor2.stock(@item4, 50)
+    @vendor2.stock(@item3, 25)
+    @vendor3.stock(@item1, 65)
+    @market.add_vendor(@vendor1)
+    @market.add_vendor(@vendor2)
+    @market.add_vendor(@vendor3)
+
+    assert_equal false, @market.sell(@item1, 200)
+    assert_equal false, @market.sell(@item5, 1)
+    assert_equal true, @market.sell(@item4, 5)
+    assert_equal 45, @vendor2.check_stock(@item4)
+    assert_equal true, @market.sell(@item1, 40)
+    assert_equal 0, @vendor1.check_stock(@item1)
+    assert_equal 60, @vendor3.check_stock(@item1)
   end
 end
