@@ -1,5 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
+require 'mocha/minitest'
+require 'date'
 require './lib/market'
 require './lib/item'
 require './lib/vendor'
@@ -14,6 +16,7 @@ class MarketTest < Minitest::Test
     @item2 = Item.new({name: 'Tomato', price: '$0.50'})
     @item3 = Item.new({name: 'Peach-Raspberry Nice Cream', price: '$5.30'})
     @item4 = Item.new({name: 'Banana Nice Cream', price: '$4.25'})
+    @item5 = Item.new({name: 'Onion', price: '$0.25'})
   end
 
   def test_it_exists_and_has_attributes
@@ -83,10 +86,9 @@ class MarketTest < Minitest::Test
   def test_it_list_total_inventory
   # Additionally, your `Market` class should have a method called `total_inventory`
   # that reports the quantities of all items sold at the market. Specifically,
-  # it should return a hash with items as keys and hash as values -
-  # this sub-hash should have two key/value pairs: quantity pointing to total
-  # inventory for that item and vendors pointing to an array of the vendors that
-  # sell that item.
+  # it should return a hash with items as keys and hash as values - this sub-hash 
+  # should have two key/value pairs: quantity pointing to total inventory for that
+  # item and vendors pointing to an array of the vendors that sell that item.
     @vendor1.stock(@item1, 35)
     @vendor1.stock(@item2, 7)
     @vendor2.stock(@item4, 50)
@@ -137,5 +139,18 @@ class MarketTest < Minitest::Test
     @market.add_vendor(@vendor3)
     expected = ['Banana Nice Cream', 'Peach', 'Peach-Raspberry Nice Cream', 'Tomato']
     assert_equal expected, @market.sorted_item_list
+  end
+
+  # Iteration 4
+  def test_it_can_find_the_date
+  # A market will now be created with a date - whatever date the market is
+  # created on through the use of `Date.today`. The addition of a date to the
+  # market should NOT break any previous tests.  The `date` method will return
+  # a string representation of the date - 'dd/mm/yyyy'. We want you to test this
+  # in with a date that is IN THE PAST. In order to test the date method in a
+  # way that will work today, tomorrow and on any date in the future, you will
+  # need to use a stub :)
+    Date.stubs(:today).returns(Date.parse("20200224"))
+    assert_equal "24/02/2020", @market.date
   end
 end
