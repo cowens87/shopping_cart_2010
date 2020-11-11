@@ -13,4 +13,9 @@ class VendorTest < Minitest::Test
     assert_instance_of Vendor, @vendor
     assert_equal "Rocky Mountain Fresh", @vendor.name
   end
+
+  def test_it_can_store_inventory
+    expected = {}
+    assert_equal expected, @vendor.inventory
+  end
 end
