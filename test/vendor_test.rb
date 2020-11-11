@@ -47,11 +47,8 @@ class VendorTest < Minitest::Test
     expected = {@item1 => 55, @item2 => 12}
     assert_equal expected, @vendor.inventory
   end
-
   # End of Iteration 2
   def test_it_can_find_potential_revenue
-  # A Vendor will be able to calculate their `potential_revenue` -
-  # the sum of all their items' price * quantity.
     @vendor1.stock(@item1, 35)
     @vendor1.stock(@item2, 7)
     @vendor2.stock(@item4, 50)
