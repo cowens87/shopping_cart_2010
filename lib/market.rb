@@ -43,4 +43,10 @@ class Market
       details[:quantity] > 50 && details[:vendors].count > 1
     end.keys  
   end
+
+  def sorted_item_list
+    total_inventory.collect do |item, details|
+      item.name if details[:quantity] > 0  
+    end.sort  
+  end
 end
