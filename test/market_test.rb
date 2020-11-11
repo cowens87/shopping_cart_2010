@@ -77,6 +77,7 @@ class MarketTest < Minitest::Test
     @market.add_vendor(@vendor3)
 
     assert_equal 100, @market.total_quantity(@item1)
+    assert_equal 35, @market.total_quantity(@item3)
   end
 
   def test_it_list_total_inventory
