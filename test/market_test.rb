@@ -154,7 +154,7 @@ class MarketTest < Minitest::Test
     assert_equal "24/02/2020", market.date
   end
 
-    def test_it_can_sell_an_item
+  def test_it_can_sell_an_item
   # Add a method to your Market class called `sell` that takes an item and a
   # quantity as arguments. There are two possible outcomes of the `sell` method:
 

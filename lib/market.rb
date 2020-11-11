@@ -50,4 +50,20 @@ class Market
       item.name if details[:quantity] > 0  
     end.sort  
   end
+
+  def sell(item, quantity)
+    enough_available = false
+    return false if quantity > total_quantity(item)
+    vendors_that_sell(item).each do |vendor|
+      initial_amount = vendor.inventory[item]
+      if initial_amount >= quantity
+        vendor.stock(item, (-quantity))
+        enough_available = true
+      elsif initial_amount < quantity
+        vendor.stock(item, -initial_amount)
+        quantity -= initial_amount
+      end
+    end
+    return enough_available
+  end
 end
