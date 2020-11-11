@@ -1,7 +1,8 @@
 class Vendor
-  attr_reader :name
+  attr_reader :name, :inventory
 
   def initialize(name)
     @name = name
-  end 
+    @inventory = Hash.new {|hash_obj, key| hash_obj[key] = 0}
+  end
 end
