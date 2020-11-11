@@ -1,5 +1,7 @@
 class Market
- attr_reader :name, :vendors, :date
+ attr_reader :name, 
+             :vendors, 
+             :date
 
   def initialize(name)
     @name = name
@@ -22,7 +24,6 @@ class Market
       vendor.inventory.include?(item)
     end
   end
-
 # Iteration 3
   def total_quantity(item)
     vendors_that_sell(item).sum do |vendor|
