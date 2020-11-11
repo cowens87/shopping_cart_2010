@@ -151,6 +151,7 @@ class MarketTest < Minitest::Test
   # way that will work today, tomorrow and on any date in the future, you will
   # need to use a stub :)
     Date.stubs(:today).returns(Date.parse("20200224"))
-    assert_equal "24/02/2020", @market.date
+    market = Market.new("South Pearl Street Farmers Market")
+    assert_equal "24/02/2020", market.date
   end
 end
