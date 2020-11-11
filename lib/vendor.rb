@@ -16,8 +16,8 @@ class Vendor
   end
 # End of Iteration 2
   def potential_revenue
-    @inventory.sum do |item, qty|
-      (item.price * qty)
+    @inventory.sum do |item, quantity|
+      (item.price * quantity)
     end
   end
 end
